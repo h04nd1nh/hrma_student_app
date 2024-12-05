@@ -1,17 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'timetable_student.g.dart';
+part 'timetable_teacher.g.dart';
 
 @JsonSerializable()
-class TimeTableStudent {
+class TimeTableTeacher {
   @JsonKey(name: "id")
   final int id;
 
-  @JsonKey(name: "student_id")
-  final int studentId;
-
-  @JsonKey(name: "time_table_teacher_id")
-  final int timeTableTeacherId;
+  @JsonKey(name: "teacher_id")
+  final int teacherId;
 
   @JsonKey(name: "teacher_name")
   final String teacherName;
@@ -34,23 +31,18 @@ class TimeTableStudent {
   @JsonKey(name: "date")
   final String date;
 
-  @JsonKey(name: "is_checkin")
-  final bool isCheckin;
-
-  TimeTableStudent(
+  TimeTableTeacher(
       {required this.id,
-      required this.studentId,
-      required this.timeTableTeacherId,
+      required this.teacherId,
       required this.teacherName,
       required this.title,
       required this.periodId,
       required this.periodName,
       required this.roomId,
       required this.roomName,
-      required this.date,
-      required this.isCheckin});
+      required this.date});
 
-  factory TimeTableStudent.fromJson(Map<String, dynamic> json) =>
-      _$TimeTableStudentFromJson(json);
-  Map<String, dynamic> toJson() => _$TimeTableStudentToJson(this);
+  factory TimeTableTeacher.fromJson(Map<String, dynamic> json) =>
+      _$TimeTableTeacherFromJson(json);
+  Map<String, dynamic> toJson() => _$TimeTableTeacherToJson(this);
 }
