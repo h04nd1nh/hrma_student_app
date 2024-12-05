@@ -8,7 +8,7 @@ class TimetableStudentCurrentResponse {
   @JsonKey(name: "success")
   final bool success;
 
-  @JsonKey(name: "time_table")
+  @JsonKey(name: "data")
   final TimeTableStudent? timeTable;
 
   TimetableStudentCurrentResponse(this.success, this.timeTable);

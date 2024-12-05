@@ -24,11 +24,17 @@ class DioConfig {
 
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        String? accessToken = await AuthLocalDataSource().getAccessToken();
-        if (accessToken != null && accessToken.isNotEmpty) {
-          options.headers['access_token'] = accessToken;
+        try {
+          final accessToken = await AuthLocalDataSource().getAccessToken();
+
+          if (accessToken?.isNotEmpty ?? false) {
+            options.headers['Authorization'] = 'Bearer $accessToken';
+          }
+        } catch (e) {
+          print('Error fetching access token: $e');
         }
-        return handler.next(options);
+
+        return handler.next(options); // Tiếp tục request
       },
       onError: (error, handler) async {
         if (error.response != null &&

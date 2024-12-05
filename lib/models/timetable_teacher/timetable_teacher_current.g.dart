@@ -12,7 +12,7 @@ TimetableTeacherCurrentResponse _$TimetableTeacherCurrentResponseFromJson(
       json['success'] as bool,
       json['time_table'] == null
           ? null
-          : TimeTableStudent.fromJson(
+          : TimeTableTeacher.fromJson(
               json['time_table'] as Map<String, dynamic>),
     );
 

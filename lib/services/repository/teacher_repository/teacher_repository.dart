@@ -1,6 +1,7 @@
 import 'package:hrm_app/core/injectors.dart';
 import 'package:hrm_app/models/action/action_response.dart';
 import 'package:hrm_app/models/session/session_request.dart';
+import 'package:hrm_app/models/session/session_response.dart';
 import 'package:hrm_app/models/timetable_teacher/timetable_teacher_current.dart';
 import 'package:hrm_app/models/timetable_teacher/timetable_teacher_response.dart';
 
@@ -12,6 +13,8 @@ abstract class TeacherRepository {
       {required int? day, required int month, required int year});
 
   Future<Result<TimetableTeacherCurrentResponse>> getCurrentTeacherTimeTable();
+
+  Future<Result<SessionResponse>> getSession({required int timeTableTeacherId});
 
   Future<Result<ActionResponse>> createcheckinSession(
       {required int timeTableTeacherId});
@@ -33,6 +36,15 @@ class TeacherRepositoryImp extends TeacherRepository {
   Future<Result<TimetableTeacherCurrentResponse>> getCurrentTeacherTimeTable() {
     return runCatchingAsync(() async {
       final response = await _baseClient.getCurrentTeacherTimeTable();
+      return response;
+    });
+  }
+
+  @override
+  Future<Result<SessionResponse>> getSession(
+      {required int timeTableTeacherId}) {
+    return runCatchingAsync(() async {
+      final response = await _baseClient.getSession(timeTableTeacherId);
       return response;
     });
   }

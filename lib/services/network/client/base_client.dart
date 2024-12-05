@@ -5,6 +5,7 @@ import 'package:hrm_app/models/DTOs/login_dto.dart';
 import 'package:hrm_app/models/action/action_response.dart';
 import 'package:hrm_app/models/authentication/authentication_response.dart';
 import 'package:hrm_app/models/session/session_request.dart';
+import 'package:hrm_app/models/session/session_response.dart';
 import 'package:hrm_app/models/timetable_student/timetable_student_current.dart';
 import 'package:hrm_app/models/timetable_student/timetable_student_response.dart';
 import 'package:hrm_app/models/timetable_teacher/timetable_teacher_current.dart';
@@ -45,6 +46,11 @@ abstract class BaseClient {
     @Body() SessionBody body,
   );
 
+  @GET("student/checkin_session")
+  Future<SessionResponse> getSession(
+    @Query("time_table_teacher_id") int timeTableTeacherId,
+  );
+
   @PUT("student/checkin_session/{id}")
   Future<ActionResponse> checkinSession(
     @Path("id") int sessionId,
@@ -52,7 +58,7 @@ abstract class BaseClient {
 
   @PUT("student/face_identify")
   @MultiPart()
-  Future<ActionResponse> uploadImage(
+  Future<ActionResponse> faceIdentify(
     @Part(name: "image") File image,
   );
 }

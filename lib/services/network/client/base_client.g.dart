@@ -242,6 +242,41 @@ class _BaseClient implements BaseClient {
   }
 
   @override
+  Future<SessionResponse> getSession(int timeTableTeacherId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'time_table_teacher_id': timeTableTeacherId
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<SessionResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'student/checkin_session',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SessionResponse _value;
+    try {
+      _value = SessionResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<ActionResponse> checkinSession(int sessionId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -275,7 +310,7 @@ class _BaseClient implements BaseClient {
   }
 
   @override
-  Future<ActionResponse> uploadImage(File image) async {
+  Future<ActionResponse> faceIdentify(File image) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

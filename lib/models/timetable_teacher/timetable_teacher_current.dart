@@ -1,4 +1,4 @@
-import 'package:hrm_app/models/timetable_student/timetable_student.dart';
+import 'package:hrm_app/models/timetable_teacher/timetable_teacher.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'timetable_teacher_current.g.dart';
@@ -9,7 +9,7 @@ class TimetableTeacherCurrentResponse {
   final bool success;
 
   @JsonKey(name: "time_table")
-  final TimeTableStudent? timeTable;
+  final TimeTableTeacher? timeTable;
 
   TimetableTeacherCurrentResponse(this.success, this.timeTable);
 
