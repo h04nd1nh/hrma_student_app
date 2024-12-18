@@ -58,7 +58,9 @@ class StudentCubit extends Cubit<StudentState> {
 
     result.when(
       success: (response) {
-        emit(StudentSessionLoaded(response.session));
+        if (response.success == true) {
+          emit(StudentSessionLoaded(response.session));
+        }
       },
       error: (error) {
         emit(const StudentError("Có lỗi xảy ra, vui lòng thử lại sau"));
