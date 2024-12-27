@@ -13,12 +13,20 @@ class HomeStudentPage extends StatefulWidget {
 }
 
 class _HomeStudentPageState extends State<HomeStudentPage> {
+  final StudentCubit _studentCubit = StudentCubit();
   TimeTableStudent? currentTimeTable;
   List<TimeTableStudent?> timeTableToday = [];
+
+  @override
+  void dispose() {
+    _studentCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => StudentCubit()
+        create: (context) => _studentCubit
           ..getCurrentTimeTable()
           ..getTimeTable(
               day: DateTime.now().day,

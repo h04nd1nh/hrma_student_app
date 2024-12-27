@@ -8,26 +8,22 @@ import 'package:hrm_app/utils/dialog_utils.dart';
 import '../../bloc/authentication/authentication_bloc.dart';
 import '../../enum/enum.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
     super.key,
   });
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   String userName = '';
   String email = '';
   Role role = Role.unKnown;
   String selectedInputValue = '';
   List<String> items = [];
   List<Map<String, dynamic>> restaurants = [];
-
-  void _handleLogout() {
-    context.read<AuthBloc>().add(AuthLogoutStarted());
-  }
 
   void _prepare() async {
     DialogUtils.showLoadingAnimation(context: context);

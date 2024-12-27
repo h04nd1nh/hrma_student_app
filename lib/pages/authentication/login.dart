@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hrm_app/pages/bottom_navigation/bottom_navigation.dart';
 import 'package:hrm_app/pages/home/home.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -95,7 +96,7 @@ class _LoginPateState extends State<LoginPage> {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child: const HomePage(),
+                    child: const BottomNavigation(),
                     type: PageTransitionType.rightToLeftWithFade));
           case AuthLogoutSuccess():
             context.read<AuthBloc>().add(AuthLoginStartedCheck());
