@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hrm_app/models/action/action_response.dart';
-import 'package:hrm_app/models/session/session_response.dart';
+import 'package:hrm_app/models/session/session_teacher_response.dart';
 import 'package:hrm_app/models/timetable_teacher/timetable_teacher.dart';
 import 'package:hrm_app/models/timetable_teacher/timetable_teacher_current.dart';
 import 'package:hrm_app/models/timetable_teacher/timetable_teacher_response.dart';
@@ -53,12 +51,12 @@ class TeacherCubit extends Cubit<TeacherState> {
   Future<void> getSession({required int timeTableTeacherId}) async {
     emit(TeacherLoading()); // Thay đổi state sang Loading
 
-    Result<SessionResponse> result = await _teacherRepository.getSession(
+    Result<SessionTeacherResponse> result = await _teacherRepository.getSession(
         timeTableTeacherId: timeTableTeacherId);
 
     result.when(
       success: (response) {
-        emit(TeacherSessionLoaded(response.session));
+        emit(TeacherSessionLoaded(response));
       },
       error: (error) {
         emit(const TeacherError("Có lỗi xảy ra, vui lòng thử lại sau"));

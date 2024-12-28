@@ -10,15 +10,14 @@ TimetableTeacherCurrentResponse _$TimetableTeacherCurrentResponseFromJson(
         Map<String, dynamic> json) =>
     TimetableTeacherCurrentResponse(
       json['success'] as bool,
-      json['time_table'] == null
+      json['data'] == null
           ? null
-          : TimeTableTeacher.fromJson(
-              json['time_table'] as Map<String, dynamic>),
+          : TimeTableTeacher.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TimetableTeacherCurrentResponseToJson(
         TimetableTeacherCurrentResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
-      'time_table': instance.timeTable,
+      'data': instance.timeTable,
     };

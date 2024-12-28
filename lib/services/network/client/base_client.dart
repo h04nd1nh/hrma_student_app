@@ -6,6 +6,7 @@ import 'package:hrm_app/models/action/action_response.dart';
 import 'package:hrm_app/models/authentication/authentication_response.dart';
 import 'package:hrm_app/models/session/session_request.dart';
 import 'package:hrm_app/models/session/session_response.dart';
+import 'package:hrm_app/models/session/session_teacher_response.dart';
 import 'package:hrm_app/models/timetable_student/timetable_student_current.dart';
 import 'package:hrm_app/models/timetable_student/timetable_student_response.dart';
 import 'package:hrm_app/models/timetable_teacher/timetable_teacher_current.dart';
@@ -48,6 +49,11 @@ abstract class BaseClient {
 
   @GET("student/checkin_session")
   Future<SessionResponse> getSession(
+    @Query("time_table_teacher_id") int timeTableTeacherId,
+  );
+
+  @GET("teacher/checkin_session")
+  Future<SessionTeacherResponse> getTeacherSession(
     @Query("time_table_teacher_id") int timeTableTeacherId,
   );
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hrm_app/pages/home_student/home_student.dart';
 import 'package:hrm_app/pages/home_teacher/home_teacher.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:hrm_app/utils/dialog_utils.dart';
 
 import '../../bloc/authentication/authentication_bloc.dart';
@@ -69,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                   margin: const EdgeInsets.only(bottom: 20),
                   child: Column(
                     children: [
