@@ -37,6 +37,7 @@ class _HomeStudentPageState extends State<HomeStudentPage> {
             if (state is StudentCurrentTimeTableLoaded) {
               setState(() {
                 currentTimeTable = state.events;
+                print(currentTimeTable);
               });
             }
             if (state is StudentTimeTableLoaded) {
@@ -53,6 +54,18 @@ class _HomeStudentPageState extends State<HomeStudentPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Add a clock widget here
+                StreamBuilder(
+                  stream: Stream.periodic(const Duration(minutes: 1)),
+                  builder: (context, snapshot) {
+                    return Text(
+                      "${TimeOfDay.now().format(context)}",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
                 (currentTimeTable != null)
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -88,7 +101,7 @@ class _HomeStudentPageState extends State<HomeStudentPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        currentTimeTable!.title,
+                                        "${currentTimeTable!.subjectId} - ${currentTimeTable!.subjectName}",
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600),
@@ -151,7 +164,7 @@ class _HomeStudentPageState extends State<HomeStudentPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          timeTableToday[index]!.title,
+                                          "${timeTableToday[index]!.subjectId} - ${timeTableToday[index]!.subjectName}",
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600),

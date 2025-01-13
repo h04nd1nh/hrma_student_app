@@ -11,10 +11,10 @@ class SessionTeacherResponse {
   final Session? session;
 
   @JsonKey(name: "checked_in_students")
-  final List<StudentInfomation?> checkedInStudent;
+  final List<StudentInfomation?>? checkedInStudent;
 
   @JsonKey(name: "not_checked_in_students")
-  final List<StudentInfomation?> notCheckinInStudent;
+  final List<StudentInfomation?>? notCheckinInStudent;
 
   SessionTeacherResponse(this.success, this.session, this.checkedInStudent,
       this.notCheckinInStudent);

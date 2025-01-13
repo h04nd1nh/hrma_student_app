@@ -12,12 +12,14 @@ SessionResponse _$SessionResponseFromJson(Map<String, dynamic> json) =>
       json['session'] == null
           ? null
           : Session.fromJson(json['session'] as Map<String, dynamic>),
+      json['room_ssid'] as String?,
     );
 
 Map<String, dynamic> _$SessionResponseToJson(SessionResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
       'session': instance.session,
+      'room_ssid': instance.roomSSID,
     };
 
 Session _$SessionFromJson(Map<String, dynamic> json) => Session(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrm_app/models/timetable_student/timetable_student.dart';
-import 'package:hrm_app/models/timetable_student/timetable_student_response.dart';
 import 'package:hrm_app/services/repository/student_repository/student_repository.dart';
 import 'package:intl/intl.dart';
 
@@ -49,7 +47,7 @@ class _TimetableStudentScreenState extends State<TimetableStudentScreen> {
           _eventList = response.timeTable.map((e) {
             DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
             return NeatCleanCalendarEvent(
-              e.title,
+              "${e.subjectId} - ${e.subjectName}",
               startTime: dateTime,
               endTime: dateTime,
               isDone: false,
@@ -87,7 +85,7 @@ class _TimetableStudentScreenState extends State<TimetableStudentScreen> {
             _eventList = response.timeTable.map((e) {
               DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
               return NeatCleanCalendarEvent(
-                e.title,
+                "${e.subjectId} - ${e.subjectName}",
                 startTime: dateTime,
                 endTime: dateTime,
                 isDone: true,
@@ -123,7 +121,7 @@ class _TimetableStudentScreenState extends State<TimetableStudentScreen> {
             _eventList = response.timeTable.map((e) {
               DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
               return NeatCleanCalendarEvent(
-                e.title,
+                "${e.subjectId} - ${e.subjectName}",
                 startTime: dateTime,
                 endTime: dateTime,
                 isDone: true,
@@ -172,7 +170,7 @@ class _TimetableStudentScreenState extends State<TimetableStudentScreen> {
           _eventList = response.timeTable.map((e) {
             DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
             return NeatCleanCalendarEvent(
-              e.title,
+              "${e.subjectId} - ${e.subjectName}",
               startTime: dateTime,
               endTime: dateTime,
               isDone: true,
@@ -358,7 +356,7 @@ class _TimetableStudentScreenState extends State<TimetableStudentScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        _timeTableList[index]!.title,
+                                        "${_timeTableList[index]!.subjectId} - ${_timeTableList[index]!.subjectName}",
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600),
@@ -373,6 +371,18 @@ class _TimetableStudentScreenState extends State<TimetableStudentScreen> {
                                         "Giảng viên: ${_timeTableList[index]!.teacherName}",
                                         style: TextStyle(
                                             fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        _timeTableList[index]!.isCheckin
+                                            ? "Đã điểm danh"
+                                            : "Chưa điểm danh",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color:
+                                                _timeTableList[index]!.isCheckin
+                                                    ? Colors.green
+                                                    : Colors.red,
                                             fontWeight: FontWeight.w400),
                                       ),
                                     ],

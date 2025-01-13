@@ -11,6 +11,7 @@ import 'package:hrm_app/models/timetable_student/timetable_student.dart';
 import 'package:hrm_app/utils/dialog_utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 
 class CheckinStudentPage extends StatefulWidget {
   const CheckinStudentPage({super.key, required this.timeTableStudent});
@@ -20,7 +21,7 @@ class CheckinStudentPage extends StatefulWidget {
 }
 
 class _CheckinStudentPageState extends State<CheckinStudentPage> {
-  Session? checkinSession;
+  SessionResponse? checkinSession;
   @override
   void initState() {
     super.initState();
@@ -43,7 +44,7 @@ class _CheckinStudentPageState extends State<CheckinStudentPage> {
                     timeTableTeacherId:
                         widget.timeTableStudent.timeTableTeacherId),
               child: BlocListener<StudentCubit, StudentState>(
-                listener: (context, state) {
+                listener: (context, state) async {
                   if (state is StudentLoading) {
                     DialogUtils.showLoadingAnimation(context: context);
                   }
@@ -84,35 +85,35 @@ class _CheckinStudentPageState extends State<CheckinStudentPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.timeTableStudent.title,
-                          style: TextStyle(
+                          "${widget.timeTableStudent.subjectId} - ${widget.timeTableStudent.subjectName}",
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         Text(
                           "${widget.timeTableStudent.periodName} - ${widget.timeTableStudent.roomName}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         Text(
                           "Giảng viên: ${widget.timeTableStudent.teacherName}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         Text(
                           "Trạng thái: ${widget.timeTableStudent.isCheckin ? "Đã checkin" : "Chưa checkin"}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(height: 24),
-                        Text(
+                        const Text(
                           "Phiên điểm danh",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
-                        (checkinSession == null)
+                        (checkinSession?.session == null)
                             ? Text(
                                 "Trạng thái: ${widget.timeTableStudent.isCheckin ? "Đã checkin" : "Chưa checkin"}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                               )
                             : Column(
@@ -121,7 +122,7 @@ class _CheckinStudentPageState extends State<CheckinStudentPage> {
                                 children: [
                                   Text(
                                     "Trạng thái: ${widget.timeTableStudent.isCheckin ? "Đã checkin" : "Chưa checkin"}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400),
                                   ),
@@ -143,7 +144,7 @@ class _CheckinStudentPageState extends State<CheckinStudentPage> {
 }
 
 class CountdownButton extends StatefulWidget {
-  final Session session; // Thời gian bắt đầu dưới dạng String
+  final SessionResponse session; // Thời gian bắt đầu dưới dạng String
 
   const CountdownButton({Key? key, required this.session}) : super(key: key);
 
@@ -158,8 +159,19 @@ class _CountdownButtonState extends State<CountdownButton> {
   String remainingTime = ""; // Text hiển thị trên Button
   bool isExpired = false;
   File? _image;
+  final info = NetworkInfo();
 
   void checkin(BuildContext context) async {
+    // final String? wifiBSSID = await info.getWifiName();
+    // print(wifiBSSID);
+    // print(widget.session.roomSSID);
+    // if (wifiBSSID == null || wifiBSSID != widget.session.roomSSID) {
+    //   DialogUtils.showToastAnimation(
+    //       dialog: DialogModel(
+    //           message: "Vui lòng kết nối wifi hợp lệ", isSuccess: false),
+    //       context: context);
+    // } else {
+    // ignore: curly_braces_in_flow_control_structures
     try {
       final picker = ImagePicker();
       final pickedFile = await picker.pickImage(
@@ -170,11 +182,13 @@ class _CountdownButtonState extends State<CountdownButton> {
 
       if (pickedFile != null) {
         await context.read<StudentCubit>().checkinSession(
-            image: File(pickedFile.path), sessionId: widget.session.id);
+            image: File(pickedFile.path),
+            sessionId: widget.session.session!.id);
       }
     } catch (e) {
       print("Error capturing image: $e");
     }
+    // }
   }
 
   @override
@@ -182,7 +196,8 @@ class _CountdownButtonState extends State<CountdownButton> {
     super.initState();
     DateTime today = DateTime.now();
     // Parse thời gian bắt đầu
-    startDateTime = DateFormat("HH:mm:ss").parse(widget.session.startTime);
+    startDateTime =
+        DateFormat("HH:mm:ss").parse(widget.session.session!.startTime);
     startDateTime = DateTime(
       today.year,
       today.month,
@@ -193,13 +208,13 @@ class _CountdownButtonState extends State<CountdownButton> {
     );
 
     // Tính thời gian kết thúc
-    endDateTime = startDateTime.add(Duration(minutes: 30));
+    endDateTime = startDateTime.add(const Duration(minutes: 30));
     // Bắt đầu đếm ngược
     _startCountdown();
   }
 
   void _startCountdown() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       final now = DateTime.now();
 
       final difference = endDateTime.difference(now);
@@ -234,20 +249,20 @@ class _CountdownButtonState extends State<CountdownButton> {
         children: [
           Text(
             remainingTime.isEmpty ? "Loading..." : remainingTime,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           MaterialButton(
             onPressed: () {
               !isExpired ? checkin(context) : null;
             },
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
               decoration: BoxDecoration(
-                  color: !isExpired ? Color(0xffDE221A) : Colors.grey,
+                  color: !isExpired ? const Color(0xffDE221A) : Colors.grey,
                   borderRadius: BorderRadius.circular(10)),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Điểm danh',
                   style: TextStyle(

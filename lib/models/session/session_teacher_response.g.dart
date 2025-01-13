@@ -13,13 +13,13 @@ SessionTeacherResponse _$SessionTeacherResponseFromJson(
       json['session'] == null
           ? null
           : Session.fromJson(json['session'] as Map<String, dynamic>),
-      (json['checked_in_students'] as List<dynamic>)
-          .map((e) => e == null
+      (json['checked_in_students'] as List<dynamic>?)
+          ?.map((e) => e == null
               ? null
               : StudentInfomation.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['not_checked_in_students'] as List<dynamic>)
-          .map((e) => e == null
+      (json['not_checked_in_students'] as List<dynamic>?)
+          ?.map((e) => e == null
               ? null
               : StudentInfomation.fromJson(e as Map<String, dynamic>))
           .toList(),

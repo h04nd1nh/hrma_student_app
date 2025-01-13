@@ -30,7 +30,7 @@ class StudentCurrentTimeTableLoaded extends StudentState {
 }
 
 class StudentSessionLoaded extends StudentState {
-  final Session? events;
+  final SessionResponse? events;
 
   const StudentSessionLoaded(this.events);
 

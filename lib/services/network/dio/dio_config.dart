@@ -7,7 +7,7 @@ class DioConfig {
 
   DioConfig._internal() {
     dio = Dio(BaseOptions(
-      baseUrl: 'https://949f-171-224-178-4.ngrok-free.app/hrmstudent/api/v1/',
+      baseUrl: 'https://3062-171-224-180-44.ngrok-free.app/hrmstudent/api/v1/',
       connectTimeout: const Duration(minutes: 2),
       receiveTimeout: const Duration(minutes: 2),
       headers: {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
@@ -23,6 +24,16 @@ class DialogUtils {
         );
       }),
     );
+  }
+
+  static void hideLoadingAnimation({
+    required BuildContext context,
+  }) {
+    if (ModalRoute.of(context)?.isCurrent != true) {
+      if (Navigator.of(context, rootNavigator: true).canPop()) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    }
   }
 
   // ** For Notifition

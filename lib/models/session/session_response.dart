@@ -10,7 +10,10 @@ class SessionResponse {
   @JsonKey(name: "session")
   final Session? session;
 
-  SessionResponse(this.success, this.session);
+  @JsonKey(name: "room_ssid")
+  final String? roomSSID;
+
+  SessionResponse(this.success, this.session, this.roomSSID);
 
   factory SessionResponse.fromJson(Map<String, dynamic> json) =>
       _$SessionResponseFromJson(json);

@@ -40,7 +40,7 @@ class _TimetableTeacherScreenState extends State<TimetableTeacherScreen> {
           _eventList = response.timeTable.map((e) {
             DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
             return NeatCleanCalendarEvent(
-              e.title,
+              "${e.subjectId} - ${e.subjectName}",
               startTime: dateTime,
               endTime: dateTime,
               isDone: false,
@@ -73,7 +73,7 @@ class _TimetableTeacherScreenState extends State<TimetableTeacherScreen> {
             _eventList = response.timeTable.map((e) {
               DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
               return NeatCleanCalendarEvent(
-                e.title,
+                "${e.subjectId} - ${e.subjectName}",
                 startTime: dateTime,
                 endTime: dateTime,
                 isDone: true,
@@ -104,7 +104,7 @@ class _TimetableTeacherScreenState extends State<TimetableTeacherScreen> {
             _eventList = response.timeTable.map((e) {
               DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
               return NeatCleanCalendarEvent(
-                e.title,
+                "${e.subjectId} - ${e.subjectName}",
                 startTime: dateTime,
                 endTime: dateTime,
                 isDone: true,
@@ -148,7 +148,7 @@ class _TimetableTeacherScreenState extends State<TimetableTeacherScreen> {
           _eventList = response.timeTable.map((e) {
             DateTime dateTime = DateFormat("dd-MM-yyyy").parse(e!.date);
             return NeatCleanCalendarEvent(
-              e.title,
+              "${e.subjectId} - ${e.subjectName}",
               startTime: dateTime,
               endTime: dateTime,
               isDone: true,
@@ -262,7 +262,7 @@ class _TimetableTeacherScreenState extends State<TimetableTeacherScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        _timeTableList[index]!.title,
+                                        "${_timeTableList[index]!.subjectId} - ${_timeTableList[index]!.subjectName!}",
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600),

@@ -16,8 +16,11 @@ class TimeTableStudent {
   @JsonKey(name: "teacher_name")
   final String teacherName;
 
-  @JsonKey(name: "title")
-  final String title;
+  @JsonKey(name: "subject_id")
+  final String subjectId;
+
+  @JsonKey(name: "subject_name")
+  final String subjectName;
 
   @JsonKey(name: "period_id")
   final int periodId;
@@ -42,7 +45,8 @@ class TimeTableStudent {
       required this.studentId,
       required this.timeTableTeacherId,
       required this.teacherName,
-      required this.title,
+      required this.subjectId,
+      required this.subjectName,
       required this.periodId,
       required this.periodName,
       required this.roomId,

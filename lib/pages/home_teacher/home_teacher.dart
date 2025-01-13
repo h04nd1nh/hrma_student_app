@@ -54,12 +54,22 @@ class _HomeTeacherPageState extends State<HomeTeacherPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                StreamBuilder(
+                  stream: Stream.periodic(const Duration(minutes: 1)),
+                  builder: (context, snapshot) {
+                    return Text(
+                      "${TimeOfDay.now().format(context)}",
+                      style: const TextStyle(
+                          fontSize: 25, fontWeight: FontWeight.bold),
+                    );
+                  },
+                ),
                 (currentTimeTable != null)
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Lớp học hiện tại",
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
@@ -89,20 +99,20 @@ class _HomeTeacherPageState extends State<HomeTeacherPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        currentTimeTable!.title,
-                                        style: TextStyle(
+                                        "${currentTimeTable!.subjectId} - ${currentTimeTable!.subjectName}",
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Text(
                                         "${currentTimeTable!.periodName} - ${currentTimeTable!.roomName}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
                                       Text(
                                         "Giảng viên: ${currentTimeTable!.teacherName}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
@@ -121,7 +131,7 @@ class _HomeTeacherPageState extends State<HomeTeacherPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Các tiết học hôm nay",
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
@@ -146,20 +156,20 @@ class _HomeTeacherPageState extends State<HomeTeacherPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          timeTableToday[index]!.title,
-                                          style: TextStyle(
+                                          "${timeTableToday[index]!.subjectId} - ${timeTableToday[index]!.subjectName}",
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600),
                                         ),
                                         Text(
                                           "${timeTableToday[index]!.periodName} - ${timeTableToday[index]!.roomName}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w400),
                                         ),
                                         Text(
                                           "Giảng viên: ${timeTableToday[index]!.teacherName}",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w400),
                                         ),
@@ -172,7 +182,7 @@ class _HomeTeacherPageState extends State<HomeTeacherPage> {
                           )
                         ],
                       )
-                    : Text(
+                    : const Text(
                         "Hôm nay bạn không có tiết học nào!",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
